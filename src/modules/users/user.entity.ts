@@ -8,8 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { IsEmail } from 'class-validator';
 import { Exclude } from 'class-transformer';
 import {BaseEntity} from '../shared/base.entity';
-
-const saltRounds = 10;
+import { USER_CONSTANTS } from './user.constant';
 
 @Entity('user')
 export class User extends BaseEntity {
@@ -28,6 +27,6 @@ export class User extends BaseEntity {
 
     @BeforeInsert()
     async hashPassword() {
-        this.password = await bcrypt.hash(this.password, saltRounds);
+        this.password = await bcrypt.hash(this.password, USER_CONSTANTS.PASSWORD_SALT_ROUNDS);
     }
 }

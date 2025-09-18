@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { NotFoundException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -18,7 +18,7 @@ export class UserService {
             },
         });
         if (!user) {
-            throw new BadRequestException('User not found');
+            throw new NotFoundException('User not found');
         }
 
         return user;
