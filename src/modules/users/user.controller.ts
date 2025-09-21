@@ -6,7 +6,7 @@ import {
     ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-import { User } from './user.entity';
+import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @ApiTags('users')
