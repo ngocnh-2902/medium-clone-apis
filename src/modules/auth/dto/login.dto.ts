@@ -7,13 +7,15 @@ import {
     MinLength,
 } from 'class-validator';
 
+import {USER_CONSTANTS} from "../../users/user.constant";
+
 export class LoginDto {
     @ApiProperty({
         description: 'Email of user',
         example: 'abc@xyz.com',
     })
     @IsEmail()
-    @MaxLength(255)
+    @MaxLength(USER_CONSTANTS.VALIDATION.MAX_EMAIL_LENGTH)
     @IsNotEmpty()
     readonly email: string;
 
@@ -21,13 +23,13 @@ export class LoginDto {
         description: 'Password of user',
         example: 'Pass#123',
     })
-    @MinLength(8, {
+    @MinLength(USER_CONSTANTS.VALIDATION.MIN_PASSWORD_LENGTH, {
         message: 'password too short',
     })
-    @MaxLength(20, {
+    @MaxLength(USER_CONSTANTS.VALIDATION.MAX_PASSWORD_LENGTH, {
         message: 'password too long',
     })
-    @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+    @Matches(USER_CONSTANTS.VALIDATION.EMAIL_REGEX, {
         message: 'password too weak',
     })
     @IsNotEmpty()
