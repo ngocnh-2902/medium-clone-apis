@@ -7,4 +7,11 @@ export const USER_CONSTANTS = {
         EMAIL_ALREADY_EXISTS: 'Email already exists',
         INVALID_PASSWORD: 'Invalid password',
     },
+    VALIDATION: {
+        MAX_EMAIL_LENGTH: 255,
+        EMAIL_REGEX: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+        MIN_PASSWORD_LENGTH: 8,
+        MAX_PASSWORD_LENGTH: 64
+
+    }
 };

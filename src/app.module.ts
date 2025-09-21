@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
@@ -11,7 +10,8 @@ import jwtConfig from './config/jwt.config'
 import swaggerConfig from './config/swagger.config'
 
 import { DatabaseModule } from './modules/database/database.module';
-import { UsersModule } from './modules/users/user.module';
+import { UserModule } from './modules/users/user.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -21,7 +21,8 @@ import { UsersModule } from './modules/users/user.module';
       load: [appConfig, jwtConfig, dbConfig, swaggerConfig],
     }),
     DatabaseModule,
-    UsersModule
+    UserModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [
