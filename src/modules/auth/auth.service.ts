@@ -3,16 +3,16 @@ import { ConfigService } from '@nestjs/config';
 import {JwtService} from '@nestjs/jwt';
 import {randomUUID} from 'crypto';
 import {BcryptService} from './bcrypt.service';
-import {UserService} from '../users/user.service';
 import {LoginDto} from './dto/login.dto';
 import {User} from "../users/entities/user.entity";
 import {IUser} from "../users/interfaces/user.interface";
 import { RegisterDto } from './dto/register.dto';
+import {UserRepository} from "../users/repositories/user.repository";
 
 @Injectable()
 export class AuthService {
     constructor(
-        private readonly userService: UserService,
+        private readonly userRepository: UserRepository,
         private readonly jwtService: JwtService,
         private readonly bcryptService: BcryptService,
         private readonly configService: ConfigService
@@ -20,7 +20,7 @@ export class AuthService {
 
     async login(loginDto: LoginDto): Promise<{ accessToken: string }> {
         const { email, password } = loginDto;
-        const user = await this.userService.findByEmail(email);
+        const user = await this.userRepository.findByEmail(email);
 
         if (!user) {
             throw new BadRequestException('Invalid email');
@@ -40,7 +40,7 @@ export class AuthService {
 
     async register(registerDto: RegisterDto): Promise<User> {
         const { email, password } = registerDto;
-        const existingUser = await this.userService.findByEmail(email);
+        const existingUser = await this.userRepository.findByEmail(email);
 
         if (existingUser) {
             throw new BadRequestException('Email or Username already exists');
@@ -48,13 +48,13 @@ export class AuthService {
 
         const hashedPassword = await this.bcryptService.hash(password);
 
-        return await this.userService.register({
+        return await this.userRepository.create({
             email,
             password: hashedPassword,
         });
     }
 
-    async generateAccessToken(
+    private async generateAccessToken(
         user: Partial<User>,
     ): Promise<{ accessToken: string }> {
         const tokenId = randomUUID();

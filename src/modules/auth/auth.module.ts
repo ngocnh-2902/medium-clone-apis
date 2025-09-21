@@ -8,15 +8,16 @@ import { BcryptService } from './bcrypt.service';
 import {UserRepository} from "../users/repositories/user.repository";
 import jwtConfig from "../../config/jwt.config";
 import {UserModule} from "../users/user.module";
+import {User} from "../users/entities/user.entity";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserRepository]),
+    TypeOrmModule.forFeature([User]),
     JwtModule.registerAsync(jwtConfig.asProvider()),
     UserModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, BcryptService],
+  providers: [AuthService, BcryptService, UserRepository],
   exports: [JwtModule],
 })
 export class AuthModule {}
