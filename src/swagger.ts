@@ -6,13 +6,22 @@ import {
     SwaggerDocumentOptions,
     SwaggerModule,
 } from '@nestjs/swagger';
+import { I18nService } from 'nestjs-i18n';
 
 export const setupSwagger = async (app: INestApplication) => {
+    const i18n = app.get(I18nService);
     const configService = app.get(ConfigService);
     const swaggerConfig = configService.get('swagger');
 
-    const config = new DocumentBuilder()
-        .setTitle(swaggerConfig.title)
+    const enConfig = new DocumentBuilder()
+        .setTitle(i18n.t('swagger.TITLE'))
+        .setDescription(swaggerConfig.description)
+        .setVersion(swaggerConfig.version)
+        .addBearerAuth()
+        .build();
+
+    const viConfig = new DocumentBuilder()
+        .setTitle(i18n.t('swagger.TITLE'))
         .setDescription(swaggerConfig.description)
         .setVersion(swaggerConfig.version)
         .addBearerAuth()
