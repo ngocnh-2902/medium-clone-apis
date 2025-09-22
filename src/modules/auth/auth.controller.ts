@@ -1,14 +1,19 @@
-import {Controller, Body, Post, HttpCode, HttpStatus} from '@nestjs/common';
+import {Controller, Body, Post, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import {
     ApiBadRequestResponse,
     ApiConflictResponse,
     ApiCreatedResponse,
-    ApiOkResponse, ApiTags,
+    ApiOkResponse,
+    ApiBearerAuth,
+    ApiUnauthorizedResponse,
+    ApiTags,
 } from '@nestjs/swagger';
 
 import {AuthService} from './auth.service';
 import {LoginDto} from "./dto/login.dto";
 import {RegisterDto} from "./dto/register.dto";
+
+import { Public } from '../../common/decorators/public.decorator';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -21,9 +26,19 @@ export class AuthController {
     })
     @ApiOkResponse({ description: 'User has been successfully logged in' })
     @HttpCode(HttpStatus.OK)
+    @Public()
     @Post('login')
     login(@Body() loginDto: LoginDto): Promise<{ accessToken: string }> {
         return this.authService.login(loginDto);
+    }
+
+    @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+    @ApiOkResponse({ description: 'User has been successfully signed out' })
+    @ApiBearerAuth()
+    @HttpCode(HttpStatus.OK)
+    @Post('logout')
+    signOut(userId: number): Promise<void> {
+        return this.authService.logout(userId);
     }
 
     @ApiConflictResponse({
@@ -35,6 +50,7 @@ export class AuthController {
     @ApiCreatedResponse({
         description: 'User has been successfully signed up',
     })
+    @Public()
     @Post('/register')
     async registerUser(@Body() input: RegisterDto) {
         return this.authService.register(input);

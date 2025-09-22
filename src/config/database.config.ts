@@ -15,7 +15,7 @@ export default registerAs('database', (): DataSourceOptions => ({
     synchronize: false,
     logging: false,
     migrationsRun: false,
-    entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
-    migrations: [join(__dirname, '..', '..', 'migrations', '*.{ts,js}')],
+    entities: [join(__dirname, '..', 'modules', '**', '*.entity.{ts,js}')],
+    migrations: [join(__dirname, '..', 'migrations', '*.{ts,js}')],
     migrationsTableName: 'migrations',
 }));
