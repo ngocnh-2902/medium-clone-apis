@@ -12,7 +12,9 @@ import { UserService } from './user.service';
 @ApiTags('users')
 @Controller('users')
 export class UserController {
-    constructor(private readonly usersService: UserService) {}
+    constructor(
+        private readonly usersService: UserService
+    ) {}
 
     @ApiUnauthorizedResponse({ description: 'Unauthorized' })
     @ApiOkResponse({ description: "Get logged in user's details", type: User })
