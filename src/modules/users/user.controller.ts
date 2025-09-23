@@ -6,8 +6,9 @@ import {
     ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-import { User } from './entities/user.entity';
+import { User } from './user.entity';
 import { UserService } from './user.service';
+import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 
 @ApiTags('users')
 @Controller('users')

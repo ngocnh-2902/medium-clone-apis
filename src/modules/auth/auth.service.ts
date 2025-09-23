@@ -4,21 +4,23 @@ import {JwtService} from '@nestjs/jwt';
 import {randomUUID} from 'crypto';
 import {BcryptService} from './bcrypt.service';
 import {LoginDto} from './dto/login.dto';
-import {User} from "../users/entities/user.entity";
-import {IUser} from "../users/interfaces/user.interface";
+import {User} from "../users/user.entity";
+import {IUser} from "../users/user.interface";
 import { RegisterDto } from './dto/register.dto';
-import {UserRepository} from "../users/repositories/user.repository";
+import {UserRepository} from "../users/user.repository";
+import {RedisService} from "../redis/redis.service";
 
 @Injectable()
 export class AuthService {
     constructor(
-        private readonly userRepository: UserRepository,
         private readonly jwtService: JwtService,
         private readonly bcryptService: BcryptService,
-        private readonly configService: ConfigService
+        private readonly redisService: RedisService,
+        private readonly configService: ConfigService,
+        private readonly userRepository: UserRepository
     ) {}
 
-    async login(loginDto: LoginDto): Promise<{ accessToken: string }> {
+    async login(loginDto: LoginDto): Promise<{ accessToken: string, refreshToken: string }> {
         const { email, password } = loginDto;
         const user = await this.userRepository.findByEmail(email);
 
@@ -38,6 +40,10 @@ export class AuthService {
         return await this.generateAccessToken(user);
     }
 
+    async logout(userId: number): Promise<void> {
+        return await this.redisService.delete(`user-${userId}`);
+    }
+
     async register(registerDto: RegisterDto): Promise<User> {
         const { email, password } = registerDto;
         const existingUser = await this.userRepository.findByEmail(email);
@@ -47,30 +53,45 @@ export class AuthService {
         }
 
         const hashedPassword = await this.bcryptService.hash(password);
-
-        return await this.userRepository.create({
+        const user = await this.userRepository.create({
             email,
             password: hashedPassword,
         });
+
+        return await this.userRepository.save(user);
     }
 
     private async generateAccessToken(
         user: Partial<User>,
-    ): Promise<{ accessToken: string }> {
+    ): Promise<{ accessToken: string, refreshToken: string }> {
         const tokenId = randomUUID();
+
+        await this.redisService.insert(`user-${user.id}`, tokenId);
 
         const accessToken = await this.jwtService.signAsync(
             {
                 id: user.id,
                 email: user.email,
-                token: tokenId,
+                tokenId: tokenId,
             } as IUser,
             {
                 secret: this.configService.get('jwt.secret'),
-                expiresIn: this.configService.get('jwt.accessTokenTtl'),
+                expiresIn: this.configService.get('jwt.signOptions.expiresIn'),
             },
         );
 
-        return { accessToken };
+        const refreshToken = await this.jwtService.signAsync(
+            {
+                id: user.id,
+                email: user.email,
+                tokenId: tokenId,
+            } as IUser,
+            {
+                secret: this.configService.get('jwt.refresh'),
+                expiresIn: this.configService.get('jwt.refreshTokenTtl'),
+            }
+        );
+
+        return { accessToken, refreshToken };
     }
 }
