@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { User } from '../entities/user.entity';
+import { User } from './user.entity';
 import { IUserRepository } from './user.repository.interface';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
@@ -20,8 +20,8 @@ export class UserRepository implements IUserRepository {
         return this.repo.findOne({ where: [{ email: email }] });
     }
 
-    async create(data: CreateUserDto): Promise<User> {
-        return this.repo.create(data);
+    async create(user: CreateUserDto): Promise<User> {
+        return this.repo.create(user);
     }
 
     async save(user: User): Promise<User> {

@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
+import {Global, Module} from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {join} from "path";
 
+@Global()
 @Module({
     imports: [
         TypeOrmModule.forRootAsync({
