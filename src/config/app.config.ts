@@ -1,6 +1,7 @@
 import { registerAs } from '@nestjs/config';
 
 export default registerAs('app', () => ({
+    lang: process.env.APP_LANG || 'en',
     title: process.env.APP_NAME,
     key: process.env.APP_KEY || '10',
     description: process.env.APP_DESCRIPTION,
