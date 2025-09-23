@@ -12,6 +12,7 @@ import swaggerConfig from './config/swagger.config'
 import { DatabaseModule } from './modules/database/database.module';
 import { UserModule } from './modules/users/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ArticleModule } from './modules/articles/article.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { AuthModule } from './modules/auth/auth.module';
     }),
     DatabaseModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    ArticleModule
   ],
   controllers: [AppController],
   providers: [
