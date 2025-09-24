@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AppModule } from './app.module';
-import { setupSwagger } from './swagger';
+import { AppModule } from '@app/app.module';
+import { setupSwagger } from '@app/swagger';
 
 async function bootstrap() {
   const appOptions = {'cors': true};

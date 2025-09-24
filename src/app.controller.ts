@@ -1,8 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { AppService } from './app.service';
-import {BcryptService} from "./modules/auth/bcrypt.service";
-import { Public } from './common/decorators/public.decorator';
+import { AppService } from '@app/app.service';
+import {BcryptService} from "@module/auth/bcrypt.service";
+import { Public } from '@app/common/decorators/public.decorator';
 
 
 @Controller()
