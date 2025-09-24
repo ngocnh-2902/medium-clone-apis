@@ -1,6 +1,6 @@
 import {ApiProperty, PartialType} from '@nestjs/swagger';
-import { CreateArticleDto } from './create-article.dto';
-import {IsDate, IsNotEmpty, IsNumber, IsString, MaxLength} from "class-validator";
+import { CreateArticleDto } from '@module/articles/dto/create-article.dto';
+import {IsDate, IsNotEmpty, IsString, MaxLength} from "class-validator";
 
 export class UpdateArticleDto extends PartialType(CreateArticleDto) {
     @ApiProperty({description: 'Article title'})

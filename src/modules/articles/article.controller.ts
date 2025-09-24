@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Query, Delete} from '@nestjs/common';
 import {ArticleService} from '@module/articles/article.service';
 import {CreateArticleDto} from '@module/articles/dto/create-article.dto';
 import {UpdateArticleDto} from '@module/articles/dto/update-article.dto';
@@ -26,8 +26,8 @@ export class ArticleController {
     @ApiBearerAuth()
     @Get('latest')
     getArticles(
-        @Param('page') page: number = 1,
-        @Param('per_page') per_page: number = 10,
+        @Query('page') page: number = 1,
+        @Query('per_page') per_page: number = 10,
     ) {
         return this.articleService.getArticles(page, per_page);
     }
@@ -36,8 +36,8 @@ export class ArticleController {
     @ApiBearerAuth()
     @Get('related-articles')
     getRelatedArticles(
-        @Param('page') page: number = 1,
-        @Param('per_page') per_page: number = 10,
+        @Query('page') page: number = 1,
+        @Query('per_page') per_page: number = 10,
     ) {
         return this.articleService.getRelatedArticles(page, per_page);
     }
