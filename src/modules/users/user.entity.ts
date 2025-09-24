@@ -1,11 +1,14 @@
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import {
     Entity,
-    Column
+    Column,
+    OneToMany,
+    JoinColumn
 } from 'typeorm';
 import { IsEmail } from 'class-validator';
 import { Exclude } from 'class-transformer';
 import {BaseEntity} from '../shared/base.entity';
+import { Comment } from '@module/comments/entities/comment.entity';
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -18,4 +21,8 @@ export class User extends BaseEntity {
     @Column()
     @Exclude({ toPlainOnly: true })
     password: string;
+
+    @OneToMany(() => Comment, (comment) => comment.author)
+    @JoinColumn({ name: 'id', referencedColumnName: 'author_id' })
+    comments: Comment[];
 }

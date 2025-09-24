@@ -1,10 +1,11 @@
 import {ApiProperty} from '@nestjs/swagger';
 import {
     Entity,
-    Column, BeforeInsert, BeforeUpdate
+    Column, BeforeInsert, BeforeUpdate, OneToMany, JoinColumn
 } from 'typeorm';
 import { BaseEntity } from '@module/shared/base.entity';
 import { toSlug } from '@app/common/utils/string.util';
+import { Comment } from '@module/comments/entities/comment.entity';
 
 @Entity('articles')
 export class Article extends BaseEntity {
@@ -58,4 +59,8 @@ export class Article extends BaseEntity {
             this.publishedAt = this.publishedAt ? this.publishedAt : new Date();
         }
     }
+
+    @OneToMany(() => Comment, (comment) => comment.article)
+    @JoinColumn({ name: 'id', referencedColumnName: 'article_id' })
+    comments: Comment[];
 }
