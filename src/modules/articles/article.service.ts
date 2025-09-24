@@ -1,26 +1,45 @@
-import { Injectable } from '@nestjs/common';
-import { CreateArticleDto } from './dto/create-article.dto';
-import { UpdateArticleDto } from './dto/update-article.dto';
+import {Injectable} from '@nestjs/common';
+import {CreateArticleDto} from '@module/articles/dto/create-article.dto';
+import {UpdateArticleDto} from '@module/articles/dto/update-article.dto';
+import {ArticleRepository} from "@module/articles/reporitories/article.repository";
+import {Article} from "@module/articles/entities/article.entity";
 
 @Injectable()
 export class ArticleService {
-  create(createArticleDto: CreateArticleDto) {
-    return 'This action adds a new article';
-  }
+    constructor(private readonly articleRepository: ArticleRepository) {
+    }
 
-  findAll() {
-    return `This action returns all article`;
-  }
+    async getArticle(id: number): Promise<Article | null> {
+        return this.articleRepository.find(id);
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} article`;
-  }
+    async getArticles(page: number, per_page: number): Promise<Article[] | []> {
+        return this.articleRepository.getArticles(page, per_page);
+    }
 
-  update(id: number, updateArticleDto: UpdateArticleDto) {
-    return `This action updates a #${id} article`;
-  }
+    async getRelatedArticles(page: number, per_page: number): Promise<Article[] | []> {
+        return this.articleRepository.getRelatedArticles(page, per_page);
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} article`;
-  }
+    async create(article: CreateArticleDto): Promise<Article | null> {
+        const newArticle = await this.articleRepository.create(article);
+        return this.articleRepository.save(newArticle);
+    }
+
+    async update(id: number, article: UpdateArticleDto): Promise<Article | null> {
+        const existingArticle = await this.articleRepository.find(id);
+        if (!existingArticle) {
+            throw new Error('Article not found');
+        }
+        Object.assign(existingArticle, article);
+        return this.articleRepository.save(existingArticle);
+    }
+
+    async delete(id: number): Promise<void> {
+        const existingArticle = await this.articleRepository.find(id);
+        if (!existingArticle) {
+            throw new Error('Article not found');
+        }
+        return this.articleRepository.delete(id);
+    }
 }

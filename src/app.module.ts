@@ -4,23 +4,23 @@ import {ConfigModule, ConfigService} from '@nestjs/config';
 import { I18nModule, AcceptLanguageResolver, QueryResolver, HeaderResolver } from 'nestjs-i18n';
 import * as path from 'path';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AppController } from '@app/app.controller';
+import { AppService } from '@app/app.service';
 
-import appConfig from './config/app.config';
-import dbConfig from './config/database.config'
-import jwtConfig from './config/jwt.config'
-import redisConfig from './config/redis.config'
-import swaggerConfig from './config/swagger.config'
+import appConfig from '@app/config/app.config';
+import dbConfig from '@app/config/database.config'
+import jwtConfig from '@app/config/jwt.config'
+import redisConfig from '@app/config/redis.config'
+import swaggerConfig from '@app/config/swagger.config'
 
-import { DatabaseModule } from './modules/database/database.module';
-import { UserModule } from './modules/users/user.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { BcryptService } from './modules/auth/bcrypt.service';
-import { RedisService } from './modules/redis/redis.service';
-import { RedisModule } from './modules/redis/redis.module';
-import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
-import { ArticleModule } from './modules/articles/article.module';
+import { DatabaseModule } from '@module/database/database.module';
+import { UserModule } from '@module/users/user.module';
+import { AuthModule } from '@module/auth/auth.module';
+import { BcryptService } from '@module/auth/bcrypt.service';
+import { RedisService } from '@module/redis/redis.service';
+import { RedisModule } from '@module/redis/redis.module';
+import { JwtAuthGuard } from '@module/auth/guards/jwt-auth.guard';
+import { ArticleModule } from '@module/articles/article.module';
 
 @Module({
   imports: [

@@ -1,5 +1,5 @@
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
-import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
+import {Column, PrimaryGeneratedColumn} from 'typeorm';
+import {ApiProperty} from '@nestjs/swagger';
 
 export class BaseEntity {
     @ApiProperty({
@@ -10,11 +10,11 @@ export class BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @ApiProperty({ description: 'Created date' })
-    @Column({ name: 'created_at' })
+    @ApiProperty({description: 'Created date'})
+    @Column({name: 'created_at'})
     createdAt: Date;
 
-    @ApiProperty({ description: 'Updated date' })
-    @Column({ name: 'updated_at' })
+    @ApiProperty({description: 'Updated date'})
+    @Column({name: 'updated_at'})
     updatedAt: Date;
 }
