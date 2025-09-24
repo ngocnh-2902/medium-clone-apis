@@ -43,7 +43,7 @@ export class AuthController {
     }
 
     @ApiConflictResponse({
-        description: i18n.t('test.HELLO'),
+        description: 'User already exists',
     })
     @ApiBadRequestResponse({
         description: 'Return errors for invalid sign up fields',
