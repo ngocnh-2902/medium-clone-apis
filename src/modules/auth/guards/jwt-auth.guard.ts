@@ -43,8 +43,6 @@ export class JwtAuthGuard implements CanActivate {
                 {secret: this.configService.get<string>('jwt.secret', '')},
             );
 
-            console.log(payload);
-
             const isValidToken = await this.redisService.validate(
                 `user-${payload.id}`,
                 payload.tokenId,

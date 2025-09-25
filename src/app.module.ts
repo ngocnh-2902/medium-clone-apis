@@ -20,6 +20,8 @@ import { BcryptService } from '@module/auth/bcrypt.service';
 import { RedisService } from '@module/redis/redis.service';
 import { RedisModule } from '@module/redis/redis.module';
 import { JwtAuthGuard } from '@module/auth/guards/jwt-auth.guard';
+import { ArticleModule } from '@module/articles/article.module';
+import {CommentModule} from "@module/comments/comment.module";
 
 @Module({
   imports: [
@@ -46,7 +48,9 @@ import { JwtAuthGuard } from '@module/auth/guards/jwt-auth.guard';
     DatabaseModule,
     RedisModule,
     AuthModule,
-    UserModule
+    UserModule,
+    ArticleModule,
+    CommentModule
   ],
   controllers: [AppController],
   providers: [

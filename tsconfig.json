@@ -25,5 +25,7 @@
       "@app/*": ["./src/*"],
       "@module/*": ["./src/modules/*"]
     }
-  }
+  },
+  "include": ["src", "test"],
+  "exclude": ["node_modules", "dist"]
 }

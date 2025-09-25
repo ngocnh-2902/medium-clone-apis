@@ -16,7 +16,7 @@ import {RegisterDto} from "./dto/register.dto";
 
 import { Public } from '../../common/decorators/public.decorator';
 
-@ApiTags('auth')
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService, private readonly i18n: I18nService) {
