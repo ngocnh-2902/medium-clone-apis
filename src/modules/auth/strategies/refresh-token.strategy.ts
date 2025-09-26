@@ -1,6 +1,6 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { Request } from 'express';
+import type { FastifyRequest } from 'fastify';
 import { Injectable } from '@nestjs/common';
 import {ConfigService} from "@nestjs/config";
 
@@ -17,11 +17,11 @@ export class RefreshTokenStrategy extends PassportStrategy(
         });
     }
 
-    validate(req: Request, payload: any) {
-        const refreshToken = req
-            .get('Authorization')
-            ?.replace('Bearer', '')
-            .trim();
+    validate(req: FastifyRequest, payload: any) {
+        const authHeader = req.headers['authorization'];
+        const refreshToken = authHeader
+            ? authHeader.replace('Bearer', '').trim()
+            : undefined;
 
         return { ...payload, refreshToken };
     }

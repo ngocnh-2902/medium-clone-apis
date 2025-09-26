@@ -9,9 +9,9 @@ import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
-import { REQUEST_USER_KEY } from '../auth.constant';
-import { RedisService } from '../../redis/redis.service';
-import {IUser} from "../../users/user.interface";
+import { REQUEST_USER_KEY } from '@module/auth/auth.constant';
+import { RedisService } from '@module/redis/redis.service';
+import { IUser } from "@module/users/user.interface";
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -31,7 +31,7 @@ export class JwtAuthGuard implements CanActivate {
             return true;
         }
 
-        const request = context.switchToHttp().getRequest();
+        const request = context.switchToHttp().getRequest<Request>();
         const token = this.getToken(request);
         if (!token) {
             throw new UnauthorizedException('Authorization token is required');

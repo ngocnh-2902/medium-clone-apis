@@ -5,7 +5,7 @@ export interface IArticle {
     slug: string;
     excerpt: string;
     content: string;
-    status: string;
+    status: number;
     publishedAt: Date;
     deletedAt: Date;
     createdAt: Date;
