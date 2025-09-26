@@ -24,7 +24,8 @@
     "paths": {
       "@app/*": ["./src/*"],
       "@module/*": ["./src/modules/*"]
-    }
+    },
+    "typeRoots": ["./src/common/types", "./node_modules/@types"],
   },
   "include": ["src", "test"],
   "exclude": ["node_modules", "dist"]

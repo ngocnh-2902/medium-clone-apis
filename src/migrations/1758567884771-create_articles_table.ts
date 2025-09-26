@@ -21,27 +21,29 @@ export class CreateArticlesTable1758567884771 implements MigrationInterface {
                     {
                         name: 'title',
                         type: 'varchar',
-                        isNullable: true,
+                        isNullable: false,
                     },
                     {
                         name: 'slug',
                         type: 'varchar',
-                        isNullable: true,
+                        isNullable: false,
                     },
                     {
                         name: 'excerpt',
                         type: 'text',
-                        isNullable: true,
+                        isNullable: false,
                     },
                     {
                         name: 'content',
                         type: 'text',
-                        isNullable: true,
+                        isNullable: false,
                     },
                     {
                         name: 'status',
-                        type: 'varchar',
-                        isNullable: true,
+                        type: 'enum',
+                        enum: ['draft', 'publish', 'trash'],
+                        default: `'draft'`,
+                        isNullable: false,
                     },
                     {
                         name: 'published_at',
@@ -56,13 +58,13 @@ export class CreateArticlesTable1758567884771 implements MigrationInterface {
                     {
                         name: 'created_at',
                         type: 'timestamp',
-                        isNullable: true,
+                        isNullable: false,
                         default: 'now()',
                     },
                     {
                         name: 'updated_at',
                         type: 'timestamp',
-                        isNullable: true,
+                        isNullable: false,
                         default: 'now()',
                     },
                 ],

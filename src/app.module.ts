@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import { I18nModule, AcceptLanguageResolver, QueryResolver, HeaderResolver } from 'nestjs-i18n';
@@ -13,13 +13,15 @@ import jwtConfig from '@app/config/jwt.config'
 import redisConfig from '@app/config/redis.config'
 import swaggerConfig from '@app/config/swagger.config'
 
+import { JwtAuthGuard } from '@app/common/guards/jwt-auth.guard';
+import { LanguageMiddleware } from '@app/common/middlewares/language.middleware';
+
 import { DatabaseModule } from '@module/database/database.module';
 import { UserModule } from '@module/users/user.module';
 import { AuthModule } from '@module/auth/auth.module';
 import { BcryptService } from '@module/auth/bcrypt.service';
 import { RedisService } from '@module/redis/redis.service';
 import { RedisModule } from '@module/redis/redis.module';
-import { JwtAuthGuard } from '@module/auth/guards/jwt-auth.guard';
 import { ArticleModule } from '@module/articles/article.module';
 import {CommentModule} from "@module/comments/comment.module";
 
@@ -63,4 +65,8 @@ import {CommentModule} from "@module/comments/comment.module";
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LanguageMiddleware).forRoutes('*');
+  }
+}

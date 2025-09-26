@@ -1,11 +1,16 @@
 import {Controller, Get, Post, Body, Patch, Param, Query, Delete} from '@nestjs/common';
+import {ApiBearerAuth, ApiOkResponse, ApiTags, ApiUnauthorizedResponse} from "@nestjs/swagger";
+
+import {GetUser} from "@app/common/decorators/get-user.decorator";
+import {SuccessResponse} from "@app/common/decorators/response.decorator";
+
+import {User} from "@module/users/user.entity";
+import {Article} from "@module/articles/entities/article.entity";
 import {ArticleService} from '@module/articles/article.service';
 import {CreateArticleDto} from '@module/articles/dto/create-article.dto';
 import {UpdateArticleDto} from '@module/articles/dto/update-article.dto';
-import {ApiBearerAuth, ApiOkResponse, ApiTags, ApiUnauthorizedResponse} from "@nestjs/swagger";
-import {Article} from "@module/articles/entities/article.entity";
-import {User} from "@module/users/user.entity";
-import {GetUser} from "@app/common/decorators/get-user.decorator";
+import {ArticlePaginateDTO} from "@module/articles/dto/paginate-article.dto";
+import {PaginateOptions, PaginateResult} from "@app/common/interfaces/paginate.interface";
 
 @ApiTags('Articles')
 @Controller('articles')
@@ -25,11 +30,11 @@ export class ArticleController {
     @ApiOkResponse({ description: "Get latest Articles" })
     @ApiBearerAuth()
     @Get('latest')
-    getArticles(
-        @Query('page') page: number = 1,
-        @Query('per_page') per_page: number = 10,
-    ) {
-        return this.articleService.getArticles(page, per_page);
+    getArticles(@Query() query: ArticlePaginateDTO): Promise<PaginateResult<Article>> {
+        const { page = 1, per_page = 10, sort = 'DESC' } = query;
+        const paginateOptions: PaginateOptions = { page, perPage: per_page, sort }
+
+        return this.articleService.getArticles(query, paginateOptions);
     }
 
     @ApiUnauthorizedResponse({ description: 'Unauthorized' })
