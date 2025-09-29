@@ -1,14 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { I18nService } from 'nestjs-i18n';
+
 import { AppModule } from '@app/app.module';
 import { setupSwagger } from '@app/swagger';
+import {ValidationPipe} from "@app/common/pipes/validation.pipe";
+import {HttpExceptionFilter} from "@app/common/filters/http-exception.filter";
 
 async function bootstrap() {
   const appOptions = {'cors': true};
   const app = await NestFactory.create(AppModule, appOptions);
   const configService = app.get(ConfigService);
   const port = configService.get('app.port');
+
+  app.useGlobalFilters(new HttpExceptionFilter(app.get(I18nService)));
+  app.useGlobalPipes(new ValidationPipe());
 
   app.setGlobalPrefix(configService.get('app.globalPrefix') ?? 'api');
   app.enableVersioning({

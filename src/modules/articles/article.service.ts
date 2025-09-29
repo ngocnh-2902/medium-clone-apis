@@ -3,6 +3,8 @@ import {CreateArticleDto} from '@module/articles/dto/create-article.dto';
 import {UpdateArticleDto} from '@module/articles/dto/update-article.dto';
 import {ArticleRepository} from "@module/articles/reporitories/article.repository";
 import {Article} from "@module/articles/entities/article.entity";
+import {PaginateOptions, PaginateResult} from "@app/common/interfaces/paginate.interface";
+import {ArticlePaginateDTO} from "@module/articles/dto/paginate-article.dto";
 
 @Injectable()
 export class ArticleService {
@@ -13,8 +15,8 @@ export class ArticleService {
         return this.articleRepository.find(id);
     }
 
-    async getArticles(page: number, per_page: number): Promise<Article[] | []> {
-        return this.articleRepository.getArticles(page, per_page);
+    async getArticles(articlePaginateDto: ArticlePaginateDTO, paginateOptions: PaginateOptions): Promise<PaginateResult<Article>> {
+        return this.articleRepository.getArticles(articlePaginateDto, paginateOptions);
     }
 
     async getRelatedArticles(page: number, per_page: number): Promise<Article[] | []> {
