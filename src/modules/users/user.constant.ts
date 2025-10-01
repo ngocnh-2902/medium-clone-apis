@@ -8,9 +8,12 @@ export const USER_CONSTANTS = {
         INVALID_PASSWORD: 'Invalid password',
     },
     VALIDATION: {
-        MAX_EMAIL_LENGTH: 255,
         EMAIL_REGEX: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
         MIN_PASSWORD_LENGTH: 8,
+        MAX_IMAGE_LENGTH: 255,
+        MAX_LOCATION_LENGTH: 255,
+        MAX_WEBSITE_LENGTH: 255,
+        MAX_EMAIL_LENGTH: 255,
         MAX_PASSWORD_LENGTH: 64
 
     }

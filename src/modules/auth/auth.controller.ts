@@ -1,4 +1,4 @@
-import {Controller, Body, Post, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
+import {Controller, Body, Post, HttpCode, HttpStatus } from '@nestjs/common';
 import {
     ApiBadRequestResponse,
     ApiConflictResponse,
@@ -8,13 +8,13 @@ import {
     ApiUnauthorizedResponse,
     ApiTags,
 } from '@nestjs/swagger';
-import { I18nService, I18nContext } from 'nestjs-i18n';
+import { I18nService } from 'nestjs-i18n';
 
 import {AuthService} from './auth.service';
 import {LoginDto} from "./dto/login.dto";
 import {RegisterDto} from "./dto/register.dto";
 
-import { Public } from '../../common/decorators/public.decorator';
+import { Public } from '@app/common/decorators/public.decorator';
 
 @ApiTags('Auth')
 @Controller('auth')

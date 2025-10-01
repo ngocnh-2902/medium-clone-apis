@@ -1,0 +1,12 @@
+{
+  "ERRORS": {
+    "USER_NOT_FOUND": "User not found",
+    "FOLLOWING_NOT_FOUND": "Following not found",
+    "ALREADY_FOLLOWING": "You are already following this user",
+    "CANNOT_FOLLOW_YOURSELF": "You cannot follow yourself"
+  },
+  "SUCCESS": {
+    "USER_FOLLOWED": "User followed successfully",
+    "USER_UNFOLLOWED": "User unfollowed successfully"
+  }
+}

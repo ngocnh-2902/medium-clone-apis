@@ -6,7 +6,7 @@ import {
     MaxLength,
     MinLength,
 } from 'class-validator';
-import {USER_CONSTANTS} from "../../users/user.constant";
+import {USER_CONSTANTS} from "@module/users/user.constant";
 
 export class RegisterDto {
     @ApiProperty({

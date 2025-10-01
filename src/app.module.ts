@@ -24,6 +24,8 @@ import { RedisService } from '@module/redis/redis.service';
 import { RedisModule } from '@module/redis/redis.module';
 import { ArticleModule } from '@module/articles/article.module';
 import {CommentModule} from "@module/comments/comment.module";
+import { ProfileModule } from '@module/user-profile/user-profile.module';
+import { UserFollowersModule } from '@module/user-followers/user-followers.module';
 
 @Module({
   imports: [
@@ -52,7 +54,9 @@ import {CommentModule} from "@module/comments/comment.module";
     AuthModule,
     UserModule,
     ArticleModule,
-    CommentModule
+    CommentModule,
+    ProfileModule,
+    UserFollowersModule
   ],
   controllers: [AppController],
   providers: [

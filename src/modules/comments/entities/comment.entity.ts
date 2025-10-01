@@ -2,7 +2,7 @@ import {ApiProperty} from "@nestjs/swagger";
 import {BeforeInsert, Column, Entity, ManyToOne, JoinColumn} from "typeorm";
 import {BaseEntity} from "@module/shared/base.entity";
 import {Article} from "@module/articles/entities/article.entity";
-import { User } from "@app/modules/users/user.entity";
+import { User } from "@app/modules/users/entities/user.entity";
 
 @Entity('comments')
 export class Comment extends BaseEntity {

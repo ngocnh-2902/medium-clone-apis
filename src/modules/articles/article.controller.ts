@@ -4,7 +4,7 @@ import {ApiBearerAuth, ApiOkResponse, ApiTags, ApiUnauthorizedResponse} from "@n
 import {GetUser} from "@app/common/decorators/get-user.decorator";
 import {SuccessResponse} from "@app/common/decorators/response.decorator";
 
-import {User} from "@module/users/user.entity";
+import {User} from "@module/users/entities/user.entity";
 import {Article} from "@module/articles/entities/article.entity";
 import {ArticleService} from '@module/articles/article.service';
 import {CreateArticleDto} from '@module/articles/dto/create-article.dto';

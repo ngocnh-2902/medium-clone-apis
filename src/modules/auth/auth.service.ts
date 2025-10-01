@@ -1,14 +1,16 @@
-import {BadRequestException, Injectable, Inject} from '@nestjs/common';
+import {BadRequestException, Injectable} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {JwtService} from '@nestjs/jwt';
 import {randomUUID} from 'crypto';
+
+import {User} from "@module/users/entities/user.entity";
+import {IUser} from "@module/users/user.interface";
+import {UserRepository} from "@module/users/repositories/user.repository";
+import {RedisService} from "@module/redis/redis.service";
+
 import {BcryptService} from './bcrypt.service';
 import {LoginDto} from './dto/login.dto';
-import {User} from "../users/user.entity";
-import {IUser} from "../users/user.interface";
 import { RegisterDto } from './dto/register.dto';
-import {UserRepository} from "../users/user.repository";
-import {RedisService} from "../redis/redis.service";
 
 @Injectable()
 export class AuthService {

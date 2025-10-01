@@ -3,13 +3,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import {JwtModule} from "@nestjs/jwt";
 
+import {UserRepository} from "@module/users/repositories/user.repository";
+import jwtConfig from "@app/config/jwt.config";
+import {UserModule} from "@module/users//user.module";
+import {User} from "@module/users/entities/user.entity";
+
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { BcryptService } from './bcrypt.service';
-import {UserRepository} from "../users/user.repository";
-import jwtConfig from "../../config/jwt.config";
-import {UserModule} from "../users/user.module";
-import {User} from "../users/user.entity";
 import {AccessTokenStrategy} from "./strategies/access-token.strategy";
 import {RefreshTokenStrategy} from "./strategies/refresh-token.strategy";
 
