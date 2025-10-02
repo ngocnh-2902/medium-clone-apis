@@ -49,16 +49,4 @@ export class UserFollowerRepository implements IUserFollowerRepository {
             relations: ['following'],
         });
     }
-
-    async create(article: any): Promise<any> {
-        return this.repo.create(article);
-    }
-
-    async delete(id: number): Promise<void> {
-        await this.repo.delete(id);
-    }
-
-    async save(article: any): Promise<any> {
-        return this.repo.save(article);
-    }
 }

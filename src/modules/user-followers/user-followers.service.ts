@@ -18,8 +18,6 @@ export class UserFollowersService {
             throw new BadRequestException(this.i18n.t('user-followers.ERRORS.CANNOT_FOLLOW_YOURSELF'));
         }
 
-        console.log(userId, dto);
-
         const follower = await this.userRepo.find(userId);
         const following = await this.userRepo.find(dto.followingId);
 
