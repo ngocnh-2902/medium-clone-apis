@@ -5,6 +5,7 @@ import {ArticleRepository} from "@module/articles/reporitories/article.repositor
 import {Article} from "@module/articles/entities/article.entity";
 import {PaginateOptions, PaginateResult} from "@app/common/interfaces/paginate.interface";
 import {ArticlePaginateDTO} from "@module/articles/dto/paginate-article.dto";
+import {User} from "@module/users/entities/user.entity";
 
 @Injectable()
 export class ArticleService {
@@ -23,8 +24,8 @@ export class ArticleService {
         return this.articleRepository.getRelatedArticles(page, per_page);
     }
 
-    async create(article: CreateArticleDto): Promise<Article | null> {
-        const newArticle = await this.articleRepository.create(article);
+    async create(authorId: number, article: CreateArticleDto): Promise<Article | null> {
+        const newArticle = await this.articleRepository.create(authorId, article);
         return this.articleRepository.save(newArticle);
     }
 

@@ -8,6 +8,7 @@ import {toSlug} from '@app/common/utils/string.util';
 import {Comment} from '@module/comments/entities/comment.entity';
 import {ARTICLE_CONSTANTS} from "@module/articles/article.constant";
 import {IsNotEmpty, IsString, IsEnum} from "class-validator";
+import {ArticleFavorite} from "@module/article-favorites/entities/article-favorite.entity";
 
 @Entity('articles')
 export class Article extends BaseEntity {
@@ -78,4 +79,7 @@ export class Article extends BaseEntity {
     @OneToMany(() => Comment, (comment) => comment.article)
     @JoinColumn({name: 'id', referencedColumnName: 'article_id'})
     comments: Comment[];
+
+    @OneToMany(() => ArticleFavorite, (af) => af.article)
+    favorites: ArticleFavorite[];
 }

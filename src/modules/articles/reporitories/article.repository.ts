@@ -50,8 +50,8 @@ export class ArticleRepository implements IArticleRepository {
         });
     }
 
-    async create(article: CreateArticleDto): Promise<Article> {
-        return this.repo.create(article);
+    async create(authorId: number, article: CreateArticleDto): Promise<Article> {
+        return this.repo.create({authorId, ...article});
     }
 
     async delete(id: number): Promise<void> {

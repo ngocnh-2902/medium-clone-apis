@@ -1,13 +1,8 @@
-import {IsString, MaxLength, IsNotEmpty, IsNumber, IsDate} from 'class-validator';
+import {IsString, MaxLength, IsNotEmpty, IsNumber, IsDate, IsOptional} from 'class-validator';
 import {ApiProperty} from "@nestjs/swagger";
 import {ARTICLE_CONSTANTS} from "@module/articles/article.constant";
 
 export class CreateArticleDto {
-    @IsString()
-    @IsNotEmpty()
-    @MaxLength(ARTICLE_CONSTANTS.VALIDATION.ID_MAX_LENGTH)
-    authorId: number;
-
     @ApiProperty({description: 'Article title'})
     @IsString()
     @IsNotEmpty()
@@ -30,6 +25,7 @@ export class CreateArticleDto {
     @IsNotEmpty()
     status: string;
 
+    @IsOptional()
     @ApiProperty({description: 'Article published date'})
     @IsDate()
     publishedAt: Date;

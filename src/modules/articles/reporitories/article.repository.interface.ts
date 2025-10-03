@@ -10,7 +10,7 @@ export interface IArticleRepository {
 
     getRelatedArticles(page: number, per_page: number): Promise<Article[] | []>;
 
-    create(article: CreateArticleDto): Promise<Article>;
+    create(authorId: number, article: CreateArticleDto): Promise<Article>;
 
     delete(id: number): Promise<void>;
 

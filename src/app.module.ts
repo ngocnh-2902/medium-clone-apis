@@ -26,6 +26,7 @@ import { ArticleModule } from '@module/articles/article.module';
 import {CommentModule} from "@module/comments/comment.module";
 import { ProfileModule } from '@module/user-profile/user-profile.module';
 import { UserFollowersModule } from '@module/user-followers/user-followers.module';
+import { ArticleFavoritesModule } from '@module/article-favorites/article-favorites.module';
 
 @Module({
   imports: [
@@ -56,7 +57,8 @@ import { UserFollowersModule } from '@module/user-followers/user-followers.modul
     ArticleModule,
     CommentModule,
     ProfileModule,
-    UserFollowersModule
+    UserFollowersModule,
+    ArticleFavoritesModule
   ],
   controllers: [AppController],
   providers: [

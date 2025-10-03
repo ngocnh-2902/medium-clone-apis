@@ -12,6 +12,7 @@ import { BaseEntity } from '@module/shared/base.entity';
 import { Comment } from '@module/comments/entities/comment.entity';
 import { UserProfile } from '@module/user-profile/entities/user-profile.entity';
 import { UserFollower } from '@module/user-followers/entities/user-follower.entity';
+import {ArticleFavorite} from "@module/article-favorites/entities/article-favorite.entity";
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -37,4 +38,7 @@ export class User extends BaseEntity {
 
     @OneToMany(() => UserFollower, (uf) => uf.follower)
     followings: UserFollower[];
+
+    @OneToMany(() => ArticleFavorite, (af) => af.article)
+    favorites: ArticleFavorite[];
 }
