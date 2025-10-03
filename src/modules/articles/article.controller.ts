@@ -50,9 +50,8 @@ export class ArticleController {
     @ApiUnauthorizedResponse({ description: 'Unauthorized' })
     @ApiBearerAuth()
     @Post('create')
-    create(@Body() createArticleDto: CreateArticleDto, @GetUser() user: User) {
-        createArticleDto.authorId = user.id;
-        return this.articleService.create(createArticleDto);
+    create(@Body() createArticleDto: CreateArticleDto, @GetUser() author: User) {
+        return this.articleService.create(author.id, createArticleDto);
     }
 
     @ApiUnauthorizedResponse({ description: 'Unauthorized' })
